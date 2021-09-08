@@ -1,0 +1,22 @@
+{
+  "name": "diploma-maker",
+  "version": "1.0.0",
+  "description": "Service to make official documents",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cheburek-hash/node-diploma-maker.git"
+  },
+  "author": "cheburek-hash <grebnevegor2000@mail.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cheburek-hash/node-diploma-maker/issues"
+  },
+  "homepage": "https://github.com/Cheburek-hash/node-diploma-maker#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
