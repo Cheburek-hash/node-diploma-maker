@@ -1,13 +1,12 @@
 'use strict';
 
-'use strict';
 
-const SRV = require('./server/server.js');
+const Server = require('./server/server');
 
-const server = new SRV();
+const server = new Server();
 
-server.start()
+server.start();
 
-server.get('/', "/public/index.html");
+
 
 
