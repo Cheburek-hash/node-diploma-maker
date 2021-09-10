@@ -1,24 +1,28 @@
 'use strict';
+const express = require('express');
+const bodyParser = require('body-parser');
+const userRouter = require('../routes/user.routes');
+const config = require('config');
+const cors = require('cors');
 
-const express = require('express')
-
-class Server{
-  constructor(port = 3000){
-    this.port = port
-    this.ROOT = require('path').dirname(require.main.filename)
+class Server {
+  constructor(){
+    this.PORT = config.get('port') || 5000;
+    this.ROOT = require('path').dirname(require.main.filename);
     this.app = express();
-    this.app.use(express.static(`${this.ROOT}/public`)); //static files
-  }
+    
+
+   }
   start = () => {
-    this.app.listen(this.port, () => {
-      console.log(`Example app listening at http://localhost:${this.port}`)
-    })
-  }
-  get = (url, file) => {
-    this.app.get(url, (req, res) => {
-       res.sendFile(this.ROOT+file)
+    this.app.listen(this.PORT, () => {
+      console.log(`App listening at http://localhost:${this.PORT}`)
     });
+    this.app.use(bodyParser.json());
+    this.app.use(cors());
+    this.app.use('/api', userRouter);
+        
   }
 }
+
 
 module.exports = Server;
