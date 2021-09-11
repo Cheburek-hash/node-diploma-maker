@@ -1,11 +1,10 @@
-import { Link } from 'react-router-dom';
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 import {NavigateMenu} from './modules/NavigateMenu'
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
-export const ConstructorPage = () => {
+export const Constructor = () => {
   const menu =  NavigateMenu("horizontal", '3')
 
     return (
@@ -46,7 +45,7 @@ export const ConstructorPage = () => {
                 </SubMenu>
               </Menu>
             </Sider>
-            <Content style={{ padding: '0 24px', minHeight: window.innerHeight }}>Content</Content>
+            <Content style={{  padding: '0 24px', minHeight: window.innerHeight }}>Content</Content>
           </Layout>
         </Content>
         <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

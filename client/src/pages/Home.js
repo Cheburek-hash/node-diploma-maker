@@ -1,37 +1,29 @@
 import React from 'react';
 
-import { Layout, Breadcrumb } from 'antd';
+import { Layout, Typography } from 'antd';
 
 import {NavigateMenu} from './modules/NavigateMenu'
 
 const { Header, Content, Footer, Sider } = Layout;
+const { Title } = Typography;
 
 
 
-export const HomePage = () => {
+export const Home = () => {
 
-  const menu =  NavigateMenu("inline", '1')
+  const MENU =  NavigateMenu("inline", '1')
 
   return (
   <Layout>
-    <Sider
-      breakpoint="lg"
-      collapsedWidth="0"
-      onBreakpoint={broken => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
-    >
-      <div className="logo" />
+    <Sider>
       
-      {menu}
+      
+      {MENU}
       
      
     </Sider>
     <Layout>
-      <Header className="site-layout-sub-header-background" style={{ padding: 0 }} />
+      <Header className="site-layout-sub-header-background site-layout-header" style={{ padding: 0, textAlign:'center' }} ><Title style={{color: '#FFF', fontFamily: 'Comfort'}}>Diploma maker</Title></Header>
       <Content style={{ margin: '24px 16px 0' }}>
         <div className="site-layout-background" style={{ padding: 24, minHeight: window.innerHeight }}>
           content
