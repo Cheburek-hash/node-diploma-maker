@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('../routes/user.routes');
+const authRouter = require('../routes/auth.routes');
 const config = require('config');
 const cors = require('cors');
 
@@ -20,6 +21,7 @@ class Server {
     this.app.use(bodyParser.json());
     this.app.use(cors());
     this.app.use('/api', userRouter);
+    this.app.use('/api/auth', authRouter)
         
   }
 }
