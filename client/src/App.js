@@ -1,16 +1,16 @@
 import React from 'react';
 import './App.css'
 import {BrowserRouter as Router} from 'react-router-dom';
-import { useRoutes } from './routes';
+import { AppRouter } from './router/AppRouter';
 
 
 
 function App() {
-  const routes = useRoutes(true);
+  
   return (
     <Router>
     <div className="container">
-      {routes}
+      <AppRouter />
       
     </div>
     </Router>
