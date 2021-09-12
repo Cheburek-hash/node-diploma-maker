@@ -1,15 +1,15 @@
 'use strict';
 const Pool = require('pg').Pool;
-const config = require('config');
+
 
 
 const pool = new Pool({
 
-    user: config.get('db_user'),
-    password: config.get('db_pass'),
-    host: config.get('db_host'),
-    port: config.get('db_port'),
-    database: config.get('db_name')
+    user: process.env.USER_POSTGERS,
+    password: process.env.PASSWORD_POSTGRES,
+    host: process.env.HOST_POSTGRES,
+    port: Number(process.env.PORT_POSTGRES),
+    database: process.env.DBNAME_POSTGRES
 
 });
 

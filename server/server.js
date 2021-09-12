@@ -1,14 +1,16 @@
 'use strict';
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('../routes/user.routes');
 const authRouter = require('../routes/auth.routes');
-const config = require('config');
+
+
 const cors = require('cors');
 
 class Server {
   constructor(){
-    this.PORT = config.get('port') || 5000;
+    this.PORT = process.env.PORT || 5000;
     this.ROOT = require('path').dirname(require.main.filename);
     this.app = express();
     
