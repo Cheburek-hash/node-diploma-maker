@@ -1,19 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory} from "react-router-dom";
 import { Menu } from 'antd';
-import { FileAddOutlined, UserOutlined, HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import { FileAddOutlined, LogoutOutlined, UserOutlined, HomeOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { ROUTES } from "../../router/routes";
-
-
+import { AuthContext } from "../../context/AuthContext";
 
 export const NavigateMenu = (mode, selectedKeys) => {
 
-        const isAuth = false;
+        const auth = useContext(AuthContext)
         const router = useHistory();
         
-        if  (isAuth){
+        if  (auth.isAuthenticated){
                 return (
-                
                         <Menu theme="dark" mode={mode} selectable={false} defaultSelectedKeys={[selectedKeys]}>
                                 
                                 <Menu.Item key="1" icon={<HomeOutlined />} onClick={() => router.push(ROUTES.HOME)} >
@@ -22,12 +20,14 @@ export const NavigateMenu = (mode, selectedKeys) => {
                                 <Menu.Item key="3" icon={<FileAddOutlined />} onClick={() => router.push(ROUTES.CONSTRUCTOR)}>
                                 Constructor
                                 </Menu.Item>
+                                <Menu.Item key="5" icon={<LogoutOutlined />} onClick={() => auth.logout()}>
+                                logout
+                                </Menu.Item>
                                 <Menu.Item key="4" icon={<InfoCircleOutlined />} onClick={() => router.push(ROUTES.ABOUT)}>
                                 About
                                 </Menu.Item>
                         </Menu>
                 );  
-                
         }
         return (
                 <Menu theme="dark" mode={mode} selectable={false} defaultSelectedKeys={[selectedKeys]}>

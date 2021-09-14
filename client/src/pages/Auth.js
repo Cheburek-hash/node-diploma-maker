@@ -1,14 +1,16 @@
 import React from "react";
+
 import { Layout, Breadcrumb, Row} from 'antd';
 
 import {NavigateMenu} from './modules/NavigateMenu'
-import { LoginForm } from "./modules/LoginForm";
+import { AuthForm } from "./modules/AuthForm";
 
 
 
 
 const { Header, Content, Footer } = Layout;
 export const Auth = () => {
+
   const menu =  NavigateMenu("horizontal", '2')
   
     return (
@@ -21,7 +23,7 @@ export const Auth = () => {
       <Breadcrumb style={{ margin: '16px 0' }}>
        
       </Breadcrumb>
-      <Layout className="site-layout-content" ><Row className="h100" justify="center" align="middle"><LoginForm /></Row></Layout>
+      <Layout className="site-layout-content" ><Row className="h100" justify="center" align="middle"><AuthForm /></Row></Layout>
     </Content>
     <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
   </Layout>
