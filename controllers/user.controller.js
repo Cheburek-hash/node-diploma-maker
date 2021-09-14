@@ -1,39 +1,68 @@
-const { errors } = require('../models/User');
+require('dotenv').config();
+const {validationResult} = require('express-validator')
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-
+const bcrypt = require('bcrypt');
 
 class UserController {
-    
     async createUser(req, res){
         try {
- 
-            const {name, email, password} = req.body;
-            if (!name||!email||!password){
-                
-                    User.errors.push({error : {message: "Fields cannot be empty!"}})
-            }
-            else if (password.length < 6){
-                User.errors.push({error : {message: "Password should contain at least 6 symbols"}})
-            }
-            else if (await User.isUserExists(email)){
-                User.errors.push({error : {message: "Such user already exists! "}})
+            const validator = validationResult(req);
+
+            const {nickname, email, password} = req.body;
+           
+            if (await User.isUserExists(email)){
+                validator.errors.push({message: "Such user already exists! "})
             }
            
-            else if (User.errors.length === 0){
-                res.status(200).json(await User.create(name, email, password));
+            else if (validator.isEmpty()){
+                res.status(201).json(await User.create(nickname, email, await bcrypt.hash(password, 11)));
+                return;
             }
                             
-            res.status(400).json(User.errors.shift())
+            res.status(400).json({error: validator.errors.shift()})
+            return;
 
-
-        } catch (e){
-            res.status(500).json({message: "Something went wrong, try one more time"})
+        } catch (error){
+            
+            res.status(500).json([{msg: "Something went wrong, try one more time"}, {dev_message: error.message}])
         }
-
-        
     }
     
     async loginUser(req, res){
+        try {
+            const validator = validationResult(req);
+            const {email, password} = req.body;
+
+            console.log(email, password)
+
+            const user = await User.findOne(email);
+
+           
+            if (!user){
+                validator.errors.push({msg: "Such user doesnt't exists! "})
+            }
+            else if (!await bcrypt.compare(password, user.password)){
+                validator.errors.push({msg: "Incorrect password! "})
+            }
+           
+            else if (validator.isEmpty()){
+              const token = jwt.sign(
+                  {userId: user.id},
+                  process.env.JWT_SECRET,
+                  {expiresIn: '1h'}
+              );
+              res.status(200).json({token: token, userId: user.id});
+              return;
+            }
+                            
+            res.status(400).json({error: validator.errors.shift()})
+            return;
+
+        } catch (error){
+            
+            res.status(500).json([{message: "Something went wrong, try one more time"}, {dev_message: error.message}])
+        }
 
     }
     
@@ -51,7 +80,6 @@ class UserController {
     async deleteUser(req, res){
         
     }
-  
 
 }
 
