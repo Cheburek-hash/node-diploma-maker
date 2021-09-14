@@ -4,8 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const userRouter = require('../routes/user.routes');
 const authRouter = require('../routes/auth.routes');
-
-
 const cors = require('cors');
 
 class Server {
