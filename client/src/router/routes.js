@@ -10,14 +10,12 @@ export const ROUTES = {
     CONSTRUCTOR:  '/constructor',
     ACCOUNT:      '/account',
     ABOUT:        '/about'
-
 }
 
 export const publicRoutes = [
     {path: ROUTES.HOME, exact: true, component: Home},
     {path: ROUTES.AUTH, exact: true, component: Auth},
     {path: ROUTES.ABOUT, exact: true, component: About}
-    
 ];
 
 export const privateRoutes = [
