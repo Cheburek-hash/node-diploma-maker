@@ -1,14 +1,13 @@
 const db = require('../server/db');
 
 class User {
-    constructor(){
-        this.errors = [];
+  
+    async isUserExists(email){
+        return (await db.query(`SELECT EXISTS(SELECT 1 FROM users WHERE email = $1);`, [email])).rows[0].exists;
     }
 
-
-    
-   async isUserExists(email){
-        return (await db.query(`select exists(select 1 from users where email = $1);`, [email])).rows[0].exists;
+    async findOne(email){
+        return (await db.query(`SELECT * FROM users WHERE email = $1`, [email])).rows[0] 
     }
 
     async login(){
