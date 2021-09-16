@@ -9,14 +9,23 @@ class UserController {
         try {
             const validator = validationResult(req);
 
-            const {nickname, email, password} = req.body;
+            const {username, email, password} = req.body;
            
             if (await User.isUserExists(email)){
                 validator.errors.push({message: "Such user already exists! "})
             }
            
             else if (validator.isEmpty()){
-                res.status(201).json(await User.create(nickname, email, await bcrypt.hash(password, 11)));
+                const user = await User.create(username, email, await bcrypt.hash(password, 11));
+
+                console.log(user);
+
+                const token = jwt.sign(
+                    {userId: user.id},
+                    process.env.JWT_SECRET,
+                    {expiresIn: '1h'}
+                );
+                res.status(201).json({token: token, userId: user.id});
                 return;
             }
                             
@@ -70,9 +79,7 @@ class UserController {
         res.send( await User.getAll());
     }
     async getOneUser(req, res){
-        res.send(
-            await db.query(`SELECT * FROM users WHERE id = $1`, [req.params.id])
-        );
+        res.send(await User.findOne(req.body.email));
     }
     async updateUser(req, res){
         
