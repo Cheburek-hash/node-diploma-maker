@@ -71,3 +71,10 @@
   height: calc(100vh - 64px);
   
 }
+
+.a4{
+  background-color: #f0fafc;
+  min-height: 29.7cm;
+  min-width: 21cm;
+  max-width: 21cm;
+}
