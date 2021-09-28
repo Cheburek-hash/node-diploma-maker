@@ -1,19 +1,19 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
 
 @font-face {
-  font-family: Comfort; 
+  font-family: Comfort;
   font-style: normal;
-  src: url('./assets/fonts/CormorantGaramond-Regular.eot') format('eot'),
-       url('./assets/fonts/CormorantGaramond-Regular.woff') format('woff'),
-       url('./assets/fonts/CormorantGaramond-Regular.woff2') format('woff2'),
+  src: url("./assets/fonts/CormorantGaramond-Regular.eot") format("eot"),
+    url("./assets/fonts/CormorantGaramond-Regular.woff") format("woff"),
+    url("./assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");
+}
 
- }
-
-*{
+* {
   margin: 0;
   padding: 0;
 }
- #components-layout-demo-top-side .logo {
+
+#components-layout-demo-top-side .logo {
   float: left;
   width: 120px;
   height: 31px;
@@ -28,7 +28,7 @@
 
 .site-layout-background {
   background: #fff;
-} 
+}
 
 #components-layout-demo-custom-trigger .trigger {
   padding: 0 24px;
@@ -52,7 +52,7 @@
   background: #fff;
 }
 
-.sider-button{
+.sider-button {
   background-color: #1890ff;
 }
 #components-form-demo-normal-login .login-form {
@@ -67,13 +67,11 @@
 #components-form-demo-normal-login .login-form-button {
   width: 100%;
 }
-.h100{
+.h100 {
   height: calc(100vh - 64px);
-  
 }
 
-.a4{
-  background-color: #f0fafc;
+.a4 {
   min-height: 29.7cm;
   min-width: 21cm;
   max-width: 21cm;
