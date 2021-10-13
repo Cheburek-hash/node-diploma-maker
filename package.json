@@ -6,7 +6,8 @@
   "scripts": {
     "server": "nodemon node app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "update": "concurrently \"npm update\" \"npm update --prefix client \""
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "express-validator": "^6.12.2",
+    "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "pdfmake": "^0.2.2",
     "pg": "^8.7.1",
@@ -32,6 +33,6 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "concurrently": "^6.2.2"
+    "concurrently": "^6.3.0"
   }
 }
