@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Menu, Avatar } from "antd";
+import { Menu } from "antd";
 import {
   FileAddOutlined,
   LogoutOutlined,
