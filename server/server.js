@@ -15,7 +15,7 @@ class Server {
   }
   start = () => {
     this.app.listen(this.PORT, () => {
-      console.log(`App listening at http://localhost:${this.PORT}`);
+      console.log(`App listening at :${this.PORT}`);
     });
     this.app.use(bodyParser.json());
     this.app.use(cors());
@@ -24,10 +24,10 @@ class Server {
     if (process.env.NODE_ENV === "production") {
       this.app.use(
         "/",
-        express.static(path.join(__dirname, "/../client", "build"))
+        express.static(path.join(this.ROOT, "client", "build"))
       );
       this.app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname,"/../client", "build", "index.html"));
+        res.sendFile(path.resolve(this.ROOT,"client", "build", "index.html"));
       });
     }
   };
