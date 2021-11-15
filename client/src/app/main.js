@@ -1,12 +1,11 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import * as PIXI from 'pixi.js'
-import { Stage, Sprite, Container, useTick, Graphics } from "@inlet/react-pixi";
+import * as PIXI from "pixi.js";
+import { Stage, Sprite, useTick, Container } from "@inlet/react-pixi";
 
 const { useState } = React;
 
 let i = 0;
-
 const Bunny = () => {
   // states
   const [x, setX] = useState(0);
@@ -18,8 +17,8 @@ const Bunny = () => {
     // console.log(delta);
     i += 0.05 * delta;
 
-    setX(Math.sin(i) * 200);
-    setY(Math.sin(i / 1.5) * 200);
+    setX(Math.sin(i) * 100);
+    setY(Math.sin(i / 1.5) * 100);
     setRotation(-10 + Math.sin(i / 10 + Math.PI * 2) * 10);
   });
 
@@ -34,27 +33,29 @@ const Bunny = () => {
   );
 };
 
-
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
 const useDrag = ({ x, y }) => {
   const sprite = React.useRef();
   const [isDragging, setIsDragging] = React.useState(false);
   const [position, setPosition] = React.useState({ x, y });
-  
+
   const onDown = React.useCallback(() => setIsDragging(true), []);
   const onUp = React.useCallback(() => setIsDragging(false), []);
-  const onMove = React.useCallback(e => {
-    if (isDragging && sprite.current) {
-      setPosition(e.data.getLocalPosition(sprite.current.parent));
-    }
-  }, [isDragging, setPosition]);
-  
+  const onMove = React.useCallback(
+    (e) => {
+      if (isDragging && sprite.current) {
+        setPosition(e.data.getLocalPosition(sprite.current.parent));
+      }
+    },
+    [isDragging, setPosition]
+  );
+
   return {
     ref: sprite,
-    interactive: true, 
-    pointerdown: onDown, 
-    pointerup: onUp, 
+    interactive: true,
+    pointerdown: onDown,
+    pointerup: onUp,
     pointerupoutside: onUp,
     pointermove: onMove,
     alpha: isDragging ? 0.5 : 1,
@@ -63,18 +64,15 @@ const useDrag = ({ x, y }) => {
   };
 };
 
-const DraggableBunny = ({ x = 400, y = 300, ...props }) => {
-  const bind = useDrag({ x, y })
-  return (
-    <Sprite
-      image="https://s3-us-west-2.amazonaws.com/s.cdpn.io/693612/IaUrttj.png" 
-      scale={4}
-      {...bind}
-      {...props}
-    />
-  );
-}
-
+const DraggableObject = ({
+  x = 400,
+  y = 300,
+  source,
+  scale = { x: 4, y: 4 },
+}) => {
+  const bind = useDrag({ x, y });
+  return <Sprite image={source} scale={(scale.x, scale.y)} {...bind} />;
+};
 
 export class Canvas extends React.Component {
   constructor() {
@@ -83,44 +81,44 @@ export class Canvas extends React.Component {
     this.w = 793 * this.pixelRatio;
     this.h = 1054 * this.pixelRatio;
     this.c = 0x01262a;
-    this.state = {
-      components: [],
-    };
+    this.stage = React.createRef();
+    this.components = [];
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event) {
-    const newComponents = [
-      ...this.state.components,
-      { comp: Bunny, x: event.clientX, y: event.clientY },
-    ];
+  toDataUrl() {
+    return this.stage.current.app.renderer.plugins.extract.base64(
+      this.stage.current.app.stage
+    );
+  }
 
-    this.setState({
-      components: newComponents,
-    });
-    // console.log(this.state.children);
-    console.log(event);
+  handleClick(event) {
+    this.components.push({component: DraggableObject, source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/693612/IaUrttj.png"});
+    console.log(this.components);
+    // console.log(event);
   }
 
   render() {
-    // console.log(this.state.children);
-    const { components } = this.state;
+       
+
     return (
       <Stage
         width={this.w}
         height={this.h}
         options={{ autoDensity: true, backgroundColor: this.c }}
+        ref={this.stage}
         // onClick={this.handleClick}
       >
-        <DraggableBunny/>
-        {components.length !== 0 &&
-          components.map((Component) => {
-            return (
-              <Container x={-Component.x} y={-Component.y} key={uuidv4()}>
-                <Component.comp key={uuidv4()} />
-              </Container>
-            );
-          })}
+        {/* <Container position={[150, 150]}  key={uuidv4()}> <Bunny key={uuidv4()} /> </Container> */}
+        
+        <DraggableObject
+          source="https://s3-us-west-2.amazonaws.com/s.cdpn.io/693612/IaUrttj.png"
+          key={uuidv4()}
+        />
+        {/* {this.components.forEach(component => {
+            console.log(component);
+          })
+        } */}
       </Stage>
     );
   }
