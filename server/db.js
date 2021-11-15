@@ -8,6 +8,9 @@ const pool = new Pool({
   host: process.env.HOST_POSTGRES,
   port: process.env.PORT_POSTGRES,
   database: process.env.DBNAME_POSTGRES,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 
 module.exports = pool;
