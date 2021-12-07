@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import * as PIXI from "pixi.js";
 import { Stage, Container, render, unmountComponentAtNode  } from "@inlet/react-pixi";
