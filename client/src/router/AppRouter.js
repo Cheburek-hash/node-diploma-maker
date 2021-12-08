@@ -1,34 +1,44 @@
 import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { publicRoutes, privateRoutes } from "./routes";
 
 export const AppRouter = (isAuthenticated = false) => {
   if (isAuthenticated) {
     return (
-      <Switch>
+      <Routes>
         {privateRoutes.map((route) => (
           <Route
             path={route.path}
             exact={route.exact}
-            component={route.component}
+            element={<route.component />}
             key={route.path}
           />
         ))}
-        <Redirect to="/" />
-      </Switch>
+       <Route
+            path={'/'}
+            exact
+            element={<Navigate to="/" />}
+            key={'/'}
+          />
+      </Routes>
     );
   }
   return (
-    <Switch>
+    <Routes>
       {publicRoutes.map((route) => (
         <Route
           path={route.path}
           exact={route.exact}
-          component={route.component}
+          element={<route.component />}
           key={route.path}
         />
       ))}
-      <Redirect to="/" />
-    </Switch>
+       <Route
+            path={'/'}
+            exact
+            element={<Navigate to="/" />}
+            key={'/'}
+          />
+    </Routes>
   );
 };

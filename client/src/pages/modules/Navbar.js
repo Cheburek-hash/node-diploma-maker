@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Menu } from "antd";
 import {
   FileAddOutlined,
@@ -13,7 +13,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const NavigateMenu = (mode, selectedKeys) => {
   const auth = useContext(AuthContext);
-  const router = useHistory();
+  const router = useNavigate();
 
   if (auth.isAuthenticated) {
     return (
@@ -26,14 +26,14 @@ export const NavigateMenu = (mode, selectedKeys) => {
         <Menu.Item
           key="1"
           icon={<HomeOutlined />}
-          onClick={() => router.push(ROUTES.HOME)}
+          onClick={() => router(ROUTES.HOME)}
         >
           Home
         </Menu.Item>
         <Menu.Item
           key="3"
           icon={<FileAddOutlined />}
-          onClick={() => router.push(ROUTES.CONSTRUCTOR)}
+          onClick={() => router(ROUTES.CONSTRUCTOR)}
         >
           Constructor
         </Menu.Item>
@@ -47,7 +47,7 @@ export const NavigateMenu = (mode, selectedKeys) => {
         <Menu.Item
           key="4"
           icon={<InfoCircleOutlined />}
-          onClick={() => router.push(ROUTES.ABOUT)}
+          onClick={() => router(ROUTES.ABOUT)}
         >
           About
         </Menu.Item>
@@ -79,21 +79,21 @@ export const NavigateMenu = (mode, selectedKeys) => {
       <Menu.Item
         key="1"
         icon={<HomeOutlined />}
-        onClick={() => router.push(ROUTES.HOME)}
+        onClick={() => router(ROUTES.HOME)}
       >
         Home
       </Menu.Item>
       <Menu.Item
         key="2"
         icon={<UserOutlined />}
-        onClick={() => router.push(ROUTES.AUTH_LOGIN)}
+        onClick={() => router(ROUTES.AUTH_LOGIN)}
       >
         Auth
       </Menu.Item>
       <Menu.Item
         key="4"
         icon={<InfoCircleOutlined />}
-        onClick={() => router.push(ROUTES.ABOUT)}
+        onClick={() => router(ROUTES.ABOUT)}
       >
         About
       </Menu.Item>
