@@ -15,7 +15,7 @@ class Server {
     this.app = express();
   }
   getLocalIp() {
-    return Object.values(os.networkInterfaces()).reduce((r, list) =>r.concat(list.reduce((rr, i) => rr.concat((i.family === "IPv4" && !i.internal && i.address) || []),[])),[])[1];
+    return Object.values(os.networkInterfaces()).reduce((r, list) =>r.concat(list.reduce((rr, i) => rr.concat((i.family === "IPv4" && !i.internal && i.address) || []),[])),[])[0];
   }
   start() {
     this.app.listen(this.PORT, () => {
