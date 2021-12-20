@@ -1,5 +1,5 @@
 import React from "react";
-import { Sprite, useTick } from "@inlet/react-pixi";
+import { Sprite, useTick, Text } from "@inlet/react-pixi";
 import * as PIXI from "pixi.js";
 const { useState } = React;
 
@@ -30,7 +30,6 @@ export const Bunny = () => {
     />
   );
 };
-
 const useDrag = ({ x, y }) => {
   const sprite = React.useRef();
   const [isDragging, setIsDragging] = React.useState(false);
@@ -70,54 +69,18 @@ export const DraggableImage = ({
   return <Sprite image={source} scale={(scale.x, scale.y)} {...bind} />;
 };
 
-export const DraggableObject = ({ tint, x, y, ...props }) => {
-  let index = 0;
-  const isDragging = React.useRef(false);
-  const offset = React.useRef({ x: 0, y: 0 });
-  const [position, setPosition] = React.useState({ x: x || 0, y: y || 0 });
-  const [alpha, setAlpha] = React.useState(1);
-  const [zIndex, setZIndex] = React.useState(index);
+export const DraggableText = ({text, x, y, ...props }) => {
+  const bind = useDrag({ x, y });
+  return (
+    <Text text={text} anchor={0.5} {...bind} {...props}/>
+    );
+};
 
-  function onStart(e) {
-    isDragging.current = true;
-    offset.current = {
-      x: e.data.global.x - position.x,
-      y: e.data.global.y - position.y,
-    };
 
-    setAlpha(0.5);
-    setZIndex(index++);
-  }
-
-  function onEnd() {
-    isDragging.current = false;
-    setAlpha(1);
-  }
-
-  function onMove(e) {
-    if (isDragging.current) {
-      setPosition({
-        x: e.data.global.x - offset.current.x,
-        y: e.data.global.y - offset.current.y,
-      });
-    }
-  }
+export const DraggableObject = ({ x, y, ...props }) => {
+  const bind = useDrag({ x, y });
 
   return (
-    <Sprite
-      {...props}
-      alpha={alpha}
-      position={position}
-      texture={PIXI.Texture.WHITE}
-      width={100}
-      height={100}
-      zIndex={zIndex}
-      tint={tint}
-      interactive={true}
-      pointerdown={onStart}
-      pointerup={onEnd}
-      pointerupoutside={onEnd}
-      pointermove={onMove}
-    />
+    <Sprite {...props} {...bind} texture={PIXI.Texture.WHITE} />
   );
 };
