@@ -2,6 +2,8 @@ import React from "react";
 import { BsSquareFill, BsCircleFill } from "react-icons/bs";
 import { BiCut } from "react-icons/bi";
 import { IoIosResize } from "react-icons/io";
+import { IoText } from "react-icons/io5";
+import { ModalWindow } from "./modules/Modal";
 import "../App.css";
 import {
   Layout,
@@ -20,6 +22,7 @@ const { Header, Content, Footer, Sider } = Layout;
 
 export const Constructor = () => {
   const canvas = React.createRef();
+  const modal = React.createRef();
   const contentStyle = {
     height: "160px",
     color: "#fff",
@@ -29,7 +32,7 @@ export const Constructor = () => {
   };
   const menu = NavigateMenu("horizontal", "3");
   const { loading, request } = useHttp();
-  
+
   const addSample = () => {
     canvas.current.changeTheme();
   };
@@ -44,6 +47,13 @@ export const Constructor = () => {
   };
 
   const b_size = "middle";
+  const sendText = (data) => {
+    
+    canvas.current.addComponent({
+      type: "text",
+      data: data,
+    });
+  };
 
   return (
     <Layout style={{ minWidth: "1100px" }}>
@@ -87,15 +97,33 @@ export const Constructor = () => {
               </Button>
               <Divider plain>Current</Divider>
               <Space size={[10, 10]} wrap>
-                <Button onClick={function(){
-                  this.canvas.current.removeComponent()
-                }} danger>Remove</Button>
+                <Button
+                  onClick={function () {
+                    canvas.current.removeComponent();
+                  }}
+                  danger
+                >
+                  Remove
+                </Button>
               </Space>
               <Divider plain>Objects</Divider>
               <Space size={[10, 10]} wrap>
-                <Button type="primary" icon={<BsSquareFill />} size={b_size} onClick={function(){
-                  canvas.current.addComponent("square")
-                }} />
+                <Button
+                  type="primary"
+                  icon={<IoText />}
+                  size={b_size}
+                  onClick={function () {
+                    modal.current.showModal(sendText);
+                  }}
+                />
+                <Button
+                  type="primary"
+                  icon={<BsSquareFill />}
+                  size={b_size}
+                  onClick={function () {
+                    canvas.current.addComponent({ type: "square", data: null });
+                  }}
+                />
                 <Button type="primary" icon={<BsCircleFill />} size={b_size} />
               </Space>
 
@@ -121,6 +149,7 @@ export const Constructor = () => {
           </Sider>
 
           <Content>
+            <ModalWindow ref={modal} />
             <Row justify="center">
               <Row className="a4">
                 <Canvas ref={canvas} />
