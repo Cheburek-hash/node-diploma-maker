@@ -65,7 +65,6 @@ export class Canvas extends React.Component {
           <Container key={uuidv4()}>
             <DraggableText
               text={info?.data}
-             
               height={100}
               style={this.TextStyle}
               x={150}
