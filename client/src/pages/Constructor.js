@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { BsSquareFill, BsCircleFill } from "react-icons/bs";
 import { BiCut } from "react-icons/bi";
 import { IoIosResize } from "react-icons/io";
-import { IoText } from "react-icons/io5";
-import { ModalWindow } from "./modules/Modal";
+import { IoText, IoColorPaletteSharp } from "react-icons/io5";
+import { ModalGradient, ModalText } from "./modules/Modals";
+
 import "../App.css";
 import {
   Layout,
@@ -21,8 +22,9 @@ import { useHttp } from "../hooks/http.hook";
 const { Header, Content, Footer, Sider } = Layout;
 
 export const Constructor = () => {
-  const canvas = React.createRef();
-  const modal = React.createRef();
+  const canvas = useRef();
+  const modalGradient = useRef();
+  const modalText = useRef();
   const contentStyle = {
     height: "160px",
     color: "#fff",
@@ -48,7 +50,6 @@ export const Constructor = () => {
 
   const b_size = "middle";
   const sendText = (data) => {
-    
     canvas.current.addComponent({
       type: "text",
       data: data,
@@ -105,6 +106,9 @@ export const Constructor = () => {
                 >
                   Remove
                 </Button>
+                <Button icon={<IoColorPaletteSharp color="#238be8" />} onClick={function () {
+                    modalGradient.current.showModal();
+                  }} size={b_size} />
               </Space>
               <Divider plain>Objects</Divider>
               <Space size={[10, 10]} wrap>
@@ -113,7 +117,7 @@ export const Constructor = () => {
                   icon={<IoText />}
                   size={b_size}
                   onClick={function () {
-                    modal.current.showModal(sendText);
+                    modalText.current.showModal(sendText);
                   }}
                 />
                 <Button
@@ -149,15 +153,17 @@ export const Constructor = () => {
           </Sider>
 
           <Content>
-            <ModalWindow ref={modal} />
+            <ModalGradient ref={modalGradient} />
+            <ModalText ref={modalText} />
             <Row justify="center">
               <Row className="a4">
                 <Canvas ref={canvas} />
               </Row>
             </Row>
-          </Content>
+          </Content> 
         </Layout>
       </Content>
+      
       <Footer style={{ textAlign: "center" }}>
         Ant Design ©2018 Created by Ant UED
       </Footer>
