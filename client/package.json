@@ -9,7 +9,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
-    "antd": "^4.18.2",
+    "antd": "^4.18.9",
     "immer": "^9.0.12",
     "pixi.js": "^6.2.1",
     "react": "^17.0.2",
