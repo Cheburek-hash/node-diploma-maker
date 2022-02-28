@@ -3,6 +3,28 @@ import { Sprite, useTick, Text } from "@inlet/react-pixi";
 import * as PIXI from "pixi.js";
 const { useState } = React;
 
+export const gradient = (from, to, width, height) => {
+  const c = document.createElement("canvas");
+  c.width = width;
+  c.height = height;
+  const ctx = c.getContext("2d");
+  const grd = ctx.createLinearGradient(0, 0, width, height);
+  grd.addColorStop(0, from);
+  grd.addColorStop(1, to);
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, width, height);
+
+  return new PIXI.Texture.from(c);
+};
+export const getRandomColor = () => {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
+
 export const Bunny = () => {
   // states
   let i = 0;

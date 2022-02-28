@@ -1,61 +1,69 @@
 "use strict";
 import React, { useRef, useEffect } from "react";
 import * as PIXI from "pixi.js";
-
-import {
-  Stage,
-  Sprite,
-  Container,
-  render,
-  Graphics,
-  unmountComponentAtNode,
-} from "@inlet/react-pixi";
+import { gradient, DraggableObject } from "./source";
+import { Stage } from "@inlet/react-pixi";
 
 PIXI.utils.skipHello();
 PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
+export const Toolbar = () => {
+  const toolbar = useRef(null);
+  const c = 0x01262a;
+  const w = 470;
+  const h = 50;
+  useEffect(() => {
+    toolbar.current.app.stage.addChild(
+      PIXI.Sprite.from(gradient("#ff0000", "#0000ff", w, h))
+    );
+  }, []);
+
+  const mouseListener = (e) => {
+    // console.log(e)
+    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+  };
+  return (
+    <Stage
+      width={w}
+      height={h}
+      options={{ interactive: true, autoDensity: true, backgroundColor: c }}
+      ref={toolbar}
+      onMouseMove={mouseListener}
+    ></Stage>
+  );
+};
 export const Picker = () => {
   const color = null;
   const w = 470;
   const h = 500;
   const c = 0x01262a;
   const stage = useRef(null);
+  const bg = useRef(null);
 
-  const gradient = (from, to, width, height) => {
-    const c = document.createElement("canvas");
-    c.width = width;
-    c.height = height;
-    const ctx = c.getContext("2d");
-    const grd = ctx.createLinearGradient(0, 0, width, height);
-    grd.addColorStop(0, from);
-    grd.addColorStop(1, to);
-    ctx.fillStyle = grd;
-    ctx.fillRect(0, 0, width, height);
+  let texture = gradient(`#f7f`, "#f33", w, h);
+  const sprite = PIXI.Sprite.from(texture);
+  // sprite.options = { interactive: true, createImageBitmap: true };
 
-    return new PIXI.Texture.from(c);
+  const mouseListener = (e) => {
+    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
   };
 
   useEffect(() => {
-    var graphics = new PIXI.Graphics();
-    graphics.hitArea = new PIXI.Rectangle(0, 0, 100, 100);
+    stage.current.app.stage.addChild(sprite);
+    // stage.current.app.stage.addChild(sprite);
+  }, [sprite]);
 
-    stage.current.app.stage.addChild(graphics);
-    var mouseIn = false;
-    graphics.on("mouseover", function (e) {
-      console.log("over");
-      mouseIn = true;
-      console.log("didmount");
-    });
-  }, []);
+  console.log(stage.current.app);
 
   return (
     <Stage
       width={w}
       height={h}
-      options={{ autoDensity: true, backgroundColor: c }}
+      options={{ interactive: true, autoDensity: true, backgroundColor: c }}
       ref={stage}
+      onMouseMove={mouseListener}
     >
-      <Sprite texture={gradient("#f9f", "#f33", w, h)} />
+      {/* <Sprite ref={bg} options={{interactive: true}} texture={gradient(getRandomColor(), getRandomColor(), w, h)} /> */}
     </Stage>
   );
 };

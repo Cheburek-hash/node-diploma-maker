@@ -1,7 +1,7 @@
 import React from "react";
 import { Input, Modal } from "antd";
-import Draggable from "react-draggable";
-import { Picker } from "../../app/graphics/colorPicker";
+
+import { Picker, Toolbar } from "../../app/graphics/colorPicker";
 
 export class ModalText extends React.Component {
   state = {
@@ -61,7 +61,7 @@ export class ModalText extends React.Component {
   };
 
   render() {
-    const { bounds, disabled, visible, type } = this.state;
+    const { disabled, visible } = this.state;
 
     return (
       <>
@@ -152,7 +152,7 @@ export class ModalGradient extends React.Component {
   };
 
   render() {
-    const { bounds, disabled, visible, type } = this.state;
+    const {  disabled, visible } = this.state;
 
     return (
       <>
@@ -184,17 +184,10 @@ export class ModalGradient extends React.Component {
           visible={visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          modalRender={(modal) => (
-            <Draggable
-              disabled={disabled}
-              bounds={bounds}
-              onStart={(event, uiData) => this.onStart(event, uiData)}
-            >
-              <div ref={this.draggleRef}>{modal}</div>
-            </Draggable>
-          )}
+         
         >
           <Picker />
+          <Toolbar />
         </Modal>
       </>
     );
