@@ -88,21 +88,18 @@ export const DraggableImage = ({
   scale = { x: 4, y: 4 },
 }) => {
   const bind = useDrag({ x, y });
-  return <Sprite image={source} scale={(scale.x, scale.y)} {...bind} />;
-};
-
-export const DraggableText = ({text, x, y, ...props }) => {
-  const bind = useDrag({ x, y });
   return (
-    <Text text={text} anchor={0.5} {...bind} {...props}/>
-    );
+    <Sprite image={source} anchor={0.5} scale={(scale.x, scale.y)} {...bind} />
+  );
 };
 
+export const DraggableText = ({ text, x, y, ...props }) => {
+  const bind = useDrag({ x, y });
+  return <Text text={text} anchor={0.5} {...bind} {...props} />;
+};
 
 export const DraggableObject = ({ x, y, ...props }) => {
   const bind = useDrag({ x, y });
 
-  return (
-    <Sprite {...props} {...bind} texture={PIXI.Texture.WHITE} />
-  );
+  return <Sprite {...props} {...bind} texture={PIXI.Texture.WHITE} />;
 };

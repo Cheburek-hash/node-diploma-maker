@@ -1,45 +1,46 @@
 {
-  "name": "diploma-maker",
-  "version": "1.0.0",
-  "description": "Service to make official documents",
-  "main": "index.js",
-  "scripts": {
-    "start": "cross-env NODE_ENV=production node app.js ",
-    "server": "nodemon node app.js",
-    "client": "npm run start --prefix client",
-    "client:install": "npm install --prefix client",
-    "client:build": "npm run build --prefix client",
-    "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\"",
-    "heroku-prebuild": "npm run client:install && npm run client:build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Cheburek-hash/node-diploma-maker.git"
-  },
-  "author": "cheburek-hash <grebnevegor2000@mail.ru>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Cheburek-hash/node-diploma-maker/issues"
-  },
-  "homepage": "https://github.com/Cheburek-hash/node-diploma-maker#readme",
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.2",
-    "cors": "^2.8.5",
-    "cross-env": "^7.0.3",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.3",
-    "express-validator": "^6.14.0",
-    "jsonwebtoken": "^8.5.1",
-    "pdfmake": "^0.2.4",
-    "pg": "^8.7.3",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "concurrently": "^6.5.1"
-  },
-  "engines": {
-    "node": "14.x",
-    "npm": "6.x"
-  }
+    "name": "diploma-maker",
+    "version": "1.1.1",
+    "description": "Service to make official documents",
+    "main": "index.js",
+    "scripts": {
+        "start": "cross-env NODE_ENV=production node app.js ",
+        "server": "nodemon node app.js",
+        "client": "npm run start --prefix client",
+        "client:install": "npm install --prefix client",
+        "client:build": "npm run build --prefix client",
+        "dev": "cross-env NODE_ENV=development concurrently \"npm run server\" \"npm run client\"",
+        "heroku-prebuild": "npm run client:install && npm run client:build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Cheburek-hash/node-diploma-maker.git"
+    },
+    "author": "cheburek-hash <grebnevegor2000@mail.ru>",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Cheburek-hash/node-diploma-maker/issues"
+    },
+    "homepage": "https://github.com/Cheburek-hash/node-diploma-maker#readme",
+    "dependencies": {
+        "bcrypt": "^5.0.1",
+        "body-parser": "^1.19.2",
+        "cors": "^2.8.5",
+        "cross-env": "^7.0.3",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.3",
+        "express-validator": "^6.14.0",
+        "jsonwebtoken": "^8.5.1",
+        "pdfmake": "^0.2.4",
+        "pg": "^8.7.3",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "concurrently": "^6.5.1",
+        "nodemon": "^2.0.15"
+    },
+    "engines": {
+        "node": "17.x",
+        "npm": "8.x"
+    }
 }
